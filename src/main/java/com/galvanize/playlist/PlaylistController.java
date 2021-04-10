@@ -2,23 +2,26 @@ package com.galvanize.playlist;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PlaylistController {
+    List<PlaylistDto> playList;
+    public PlaylistController(List<PlaylistDto> playList){
+        this.playList=playList;
+    }
 
     @GetMapping("playlists")
-    public String getPlaylists(){
-        return "[{}]";
+    public List<PlaylistDto> getPlaylists(){
+        return playList;
     }
 
     @PostMapping("playlists")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addPlaylists(){
-
+    public void addPlaylists(@RequestBody PlaylistDto playlistDto){
+    playList.add(playlistDto);
 
     }
 }
