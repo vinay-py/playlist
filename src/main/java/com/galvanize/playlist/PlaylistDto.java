@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class PlaylistDto {
-    String playListName;
-    List<String> songs;
+    String playlistName;
+    String songs;
 }

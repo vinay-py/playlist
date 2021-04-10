@@ -37,10 +37,7 @@ public class PlaylistIT {
     @Test
     public void addPlaylist() throws Exception {
 
-        List<String> songs= new ArrayList<>();
-        songs.add("song1");
-
-        PlaylistDto playlistDto = new PlaylistDto("FirstPlayList",songs);
+        PlaylistDto playlistDto = new PlaylistDto("FirstPlayList","Song1");
         mockMvc.perform(post("/playlists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(playlistDto)))
@@ -48,8 +45,8 @@ public class PlaylistIT {
 
         mockMvc.perform(get("/playlists"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("[0].playListName").value("FirstPlayList"))
-        .andExpect(jsonPath("[0].songs[0]").value("song1"));
+                .andExpect(jsonPath("[0].playlistName").value("FirstPlayList"))
+        .andExpect(jsonPath("[0].songs").value("Song1"));
     }
 
 }

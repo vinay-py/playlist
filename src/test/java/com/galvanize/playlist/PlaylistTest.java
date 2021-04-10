@@ -23,11 +23,11 @@ public class PlaylistTest {
     @Test
     void createPlaylist(){
         PlaylistDto playlistDto =
-                new PlaylistDto("FirstPlayList", List.of("song1"));
+                new PlaylistDto("FirstPlayList", "song1");
         subject.create(playlistDto);
 
         verify(mockPlaylistRepository).save(
-                new PlaylistEntity("FirstPlayList", List.of("song1"))
+                new PlaylistEntity("FirstPlayList", "song1")
         );
     }
 }

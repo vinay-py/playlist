@@ -8,20 +8,22 @@ import java.util.List;
 
 @RestController
 public class PlaylistController {
-    List<PlaylistDto> playList;
-    public PlaylistController(List<PlaylistDto> playList){
-        this.playList=playList;
+
+    PlaylistService playlistService;
+
+    public PlaylistController(PlaylistService playlistService) {
+        this.playlistService = playlistService;
     }
 
     @GetMapping("playlists")
     public List<PlaylistDto> getPlaylists(){
-        return playList;
+        return this.playlistService.fetchAll();
     }
 
     @PostMapping("playlists")
     @ResponseStatus(HttpStatus.CREATED)
     public void addPlaylists(@RequestBody PlaylistDto playlistDto){
-    playList.add(playlistDto);
+        this.playlistService.create(playlistDto);
 
     }
 }
