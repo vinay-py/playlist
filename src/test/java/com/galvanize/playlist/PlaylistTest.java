@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
@@ -22,12 +23,18 @@ public class PlaylistTest {
 
     @Test
     void createPlaylist(){
+
+
+        List<String> songsList = new ArrayList<String>();
+        songsList.add("Song1");
+
         PlaylistDto playlistDto =
-                new PlaylistDto("FirstPlayList", "song1");
+                new PlaylistDto("FirstPlayList",songsList);
+
         subject.create(playlistDto);
 
         verify(mockPlaylistRepository).save(
-                new PlaylistEntity("FirstPlayList", "song1")
+                new PlaylistEntity("FirstPlayList",songsList)
         );
     }
 }

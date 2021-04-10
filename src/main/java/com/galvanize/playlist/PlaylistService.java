@@ -18,8 +18,7 @@ public class PlaylistService {
 
     public void create(PlaylistDto playlistDto) {
         playlistRepository.save(
-                new PlaylistEntity(playlistDto.getPlaylistName(),
-                        playlistDto.getSongs())
+                new PlaylistEntity(playlistDto.getPlaylistName(),playlistDto.getSongs())
         );
     }
 
@@ -27,10 +26,15 @@ public class PlaylistService {
         return playlistRepository.findAll()
                 .stream()
                 .map(playlistEntity -> {
-                    return new PlaylistDto(playlistEntity.getPlaylistName()
-                    ,playlistEntity.getSongs());
+                    return new PlaylistDto(playlistEntity.getPlaylistName(),playlistEntity.getSongs());
                         }
-
                 ).collect(Collectors.toList());
     }
+
+    public void addSong(String playlistName, String songName){
+        PlaylistEntity playlist =playlistRepository.findByName(playlistName);
+        playlist.addSong(songName);
+        playlistRepository.save(playlist);
+    }
+
 }

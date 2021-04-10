@@ -1,8 +1,12 @@
 package com.galvanize.playlist;
 
+
 import lombok.*;
 
+
 import java.util.List;
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,5 +14,7 @@ import java.util.List;
 @Setter
 public class PlaylistDto {
     String playlistName;
-    String songs;
+    List<String> songs;
+
+
 }
