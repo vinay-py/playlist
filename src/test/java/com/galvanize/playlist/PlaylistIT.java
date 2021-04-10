@@ -3,6 +3,7 @@ package com.galvanize.playlist;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -12,6 +13,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 public class PlaylistIT {
 
     @Autowired
@@ -41,12 +46,17 @@ public class PlaylistIT {
         mockMvc.perform(post("/playlists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(playlistDto)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(document("AddPlaylist"));
 
         mockMvc.perform(get("/playlists"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].playlistName").value("FirstPlayList"))
-        .andExpect(jsonPath("[0].songs").value("Song1"));
+        .andExpect(jsonPath("[0].songs").value("Song1"))
+        .andDo(document("Playlists", responseFields(
+                fieldWithPath("[0].playlistName").description("FirstPlayList"),
+                fieldWithPath("[0].songs").description("SOng1")
+        )));
     }
 
 }
