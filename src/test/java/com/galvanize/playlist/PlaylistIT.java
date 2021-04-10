@@ -49,7 +49,8 @@ public class PlaylistIT {
 
         mockMvc.perform(get("/playlists"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("[0].playListName").value("FirstPlayList"));
+                .andExpect(jsonPath("[0].playListName").value("FirstPlayList"))
+        .andExpect(jsonPath("[0].songs[0]").value("song1"));
     }
 
 }
