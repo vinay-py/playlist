@@ -20,9 +20,12 @@ public class PlaylistIT {
 
     @Test
     public void getPlaylist() throws Exception {
+
+        //PlaylistDto playlistDto = new PlaylistDto();
+
         mockMvc.perform(get("/playlists"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("length()").value(0));
+                .andExpect(jsonPath("length()").value(1));
     }
 
 }

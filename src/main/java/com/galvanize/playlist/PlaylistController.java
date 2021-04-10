@@ -11,6 +11,6 @@ public class PlaylistController {
 
     @GetMapping("playlists")
     public String getPlaylists(){
-        return "[]";
+        return "[{}]";
     }
 }
